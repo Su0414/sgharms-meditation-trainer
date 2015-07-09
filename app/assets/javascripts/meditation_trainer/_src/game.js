@@ -7,6 +7,10 @@ MeditationTrainer.Game.prototype = {
     this.breaths.push(breath);
   },
 
+  breathCount: function() {
+    return this.breaths.length;
+  },
+
   longestInhale: function() {
     return this.breaths.sort(function(a,b) {
       return b.inhaleDuration() - a.inhaleDuration()
