@@ -1,3 +1,3 @@
 $(function() {
-  new MeditationTrainer.Controller
+  mc = new MeditationTrainer.Controller()
 });
