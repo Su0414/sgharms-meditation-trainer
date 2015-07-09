@@ -14,11 +14,13 @@ MeditationTrainer.Game.prototype = {
   }
 }
 
-MeditationTrainer.Controller = function() {
+MeditationTrainer.Controller = function(totalBreaths) {
   this.SPACEBAR_KEYCODE = 32;
+  this.maxBreathCount = typeof(totalBreaths) == "undefined" ? 3 : 0
 
   this.activeGame = null;
   this.isInhaling = false;
+  this.breathCount = 0;
 
   this._initializeSpacebarListener();
 }
@@ -39,6 +41,11 @@ MeditationTrainer.Controller.prototype = {
       this.currentBreath.finish();
       this.activeGame.addBreath(this.currentBreath)
       this.isInhaling = false;
+      this.breathCount++;
+    }
+
+    if (this.breathCount == this.maxBreathCount) {
+      console.log('game over');
     }
   },
 
