@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'meditate/index'
-
   get '/meditate' => 'meditate#index'
+  get '/meditate/intro' => 'meditate#intro'
+  post '/meditate/set_cycle' => 'meditate#set_cycle'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
