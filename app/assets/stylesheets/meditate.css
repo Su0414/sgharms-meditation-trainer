@@ -2,18 +2,15 @@
   min-height: 300px;
 }
 
-#prompt-view {
-  background-color: red;
+#prompt-view h1{
+  text-align: center;
 }
 
 #stats-view {
-  background-color: green;
   float: left;
-  width: 25%;
+  width: 33%;
 }
 
 #timer-view {
-  background-color: blue;
-  /*width: 99%;*/
   float: left;
 }
