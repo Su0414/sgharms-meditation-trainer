@@ -1,0 +1,20 @@
+#meditation-application {
+  border: solid 1px red;
+  min-height: 300px;
+}
+
+#prompt-view {
+  background-color: red;
+}
+
+#stats-view {
+  background-color: green;
+  float: left;
+  width: 25%;
+}
+
+#timer-view {
+  background-color: blue;
+  /*width: 99%;*/
+  float: left;
+}
