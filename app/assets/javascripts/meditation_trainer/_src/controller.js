@@ -1,4 +1,4 @@
-MeditationTrainer.Controller = function(totalBreaths, statsView) {
+MeditationTrainer.Controller = function(totalBreaths, statsView, promptView) {
   this.SPACEBAR_KEYCODE = 32;
   this.DEBUG_MODE = true;
 
@@ -9,8 +9,10 @@ MeditationTrainer.Controller = function(totalBreaths, statsView) {
   this.breathCount = 0;
 
   this.statsView = statsView;
+  this.promptView = promptView;
 
   this._initializeSpacebarListener();
+  this._initializeDisplay();
 }
 
 MeditationTrainer.Controller.prototype = {
@@ -21,6 +23,7 @@ MeditationTrainer.Controller.prototype = {
 
     if (!this.isInhaling && !this.isExhaling) {
       this._initializeFirstBreath();
+      this._prompt("Inhale");
       return;
     }
 
@@ -40,6 +43,7 @@ MeditationTrainer.Controller.prototype = {
 
   _pivotBreath: function() {
     if (this.DEBUG_MODE) console.log('pivoting breath');
+    this._prompt("Exhale");
     this.currentBreath.pivot();
     this.activeGame.addBreath(this.currentBreath)
     this.isInhaling = false;
@@ -72,5 +76,13 @@ MeditationTrainer.Controller.prototype = {
         this.spacebarFired(jqEvent);
       }
     }.bind(this));
+  },
+
+  _prompt: function(message) {
+    this.promptView.draw(message);
+  },
+
+  _initializeDisplay: function() {
+    this._prompt("Begin to breathe deeply. When you feel ready to begin, press Space at the end of an exhale.");
   }
 }
