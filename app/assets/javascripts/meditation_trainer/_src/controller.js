@@ -23,7 +23,7 @@ MeditationTrainer.Controller.prototype = {
 
     if (!this.isInhaling && !this.isExhaling) {
       this._initializeFirstBreath();
-      this._prompt("Inhale");
+      this._prompt("Inhale.  When you reach the 'top' of the inhale, hit space.");
       return;
     }
 
@@ -39,6 +39,7 @@ MeditationTrainer.Controller.prototype = {
     this._recordBreath();
     if (this.breathCount == this.maxBreathCount) {
       if (this.DEBUG_MODE) console.log('game over');
+      this._prompt("This concludes your session");
     }
   },
 
@@ -60,7 +61,7 @@ MeditationTrainer.Controller.prototype = {
 
   _pivotBreath: function() {
     if (this.DEBUG_MODE) console.log('pivoting breath');
-    this._prompt("Exhale");
+    this._prompt("Exhale.  When you reach the end of your exhale hit space to conclude this breath.");
     this.currentBreath.pivot();
     this.activeGame.addBreath(this.currentBreath)
     this.isInhaling = false;
