@@ -1,3 +1,3 @@
 $(function() {
-  mc = new MeditationTrainer.Controller()
+  mc = new MeditationTrainer.Controller(undefined, new MeditationTrainer.StatsView())
 });
