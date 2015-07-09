@@ -36,9 +36,26 @@ MeditationTrainer.Controller.prototype = {
     this.breathCount++;
     this.isExhaling = false;
     this._updateStatsView();
+    this._recordBreath();
     if (this.breathCount == this.maxBreathCount) {
       if (this.DEBUG_MODE) console.log('game over');
     }
+  },
+
+  _recordBreath: function() {
+    $.ajax('/breaths', {
+      type: 'POST',
+      data: { record: this.activeGame.toJson() }
+    }).then(function(json) {
+      this._update_system_stats(json)
+    }.bind(this));
+  },
+
+  _update_system_stats: function(json) {
+    $('#longest-inhale-duration-ever').text(json.longestInhale);
+    $('#average-inhale-duration-ever').text(json.longestExhale);
+    $('#longest-exhale-duration-ever').text(json.longestAverageInhale);
+    $('#average-exhale-duration-ever').text(json.longestAverageExhale);
   },
 
   _pivotBreath: function() {
@@ -84,5 +101,9 @@ MeditationTrainer.Controller.prototype = {
 
   _initializeDisplay: function() {
     this._prompt("Begin to breathe deeply. When you feel ready to begin, press Space at the end of an exhale.");
+    $.ajax("/breaths/show_record")
+    .then(function(json) {
+      this._update_system_stats(json);
+    }.bind(this));
   }
 }

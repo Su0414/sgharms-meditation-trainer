@@ -42,4 +42,13 @@ MeditationTrainer.Game.prototype = {
       return memo += elem.cycleDuration();
     }, 0) / this.breaths.length
   },
+
+  toJson: function() {
+    return {
+      longestInhale: this.longestInhale(),
+      averageInhale: this.averageInhale(),
+      longestExhale: this.longestExhale(),
+      averageExhale: this.averageExhale()
+    };
+  }
 }

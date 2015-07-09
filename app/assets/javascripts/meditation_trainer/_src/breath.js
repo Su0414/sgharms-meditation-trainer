@@ -27,4 +27,5 @@ MeditationTrainer.Breath.prototype = {
     if (typeof(this.endDate) == "undefined") this.endDate(); // Prevent naughtiness
     return (this.endDate - this.startDate) / 1000;
   }
+
 }
