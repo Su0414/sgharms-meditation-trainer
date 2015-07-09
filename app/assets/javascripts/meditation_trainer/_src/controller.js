@@ -1,11 +1,3 @@
-MeditationTrainer.Game = function() {
-}
-
-MeditationTrainer.Game.prototype = {
-  addBreath: function() {
-  }
-}
-
 MeditationTrainer.Controller = function(totalBreaths) {
   this.SPACEBAR_KEYCODE = 32;
   this.maxBreathCount = typeof(totalBreaths) == "undefined" ? 3 : 0
