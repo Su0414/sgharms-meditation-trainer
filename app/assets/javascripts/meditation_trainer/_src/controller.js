@@ -2,7 +2,7 @@ MeditationTrainer.Controller = function(totalBreaths, statsView, promptView) {
   this.SPACEBAR_KEYCODE = 32;
   this.DEBUG_MODE = true;
 
-  this.maxBreathCount = typeof(totalBreaths) == "undefined" ? 3 : 0
+  this.maxBreathCount = typeof(totalBreaths) == "undefined" ? 3 : totalBreaths;
 
   this.activeGame = null;
   this.isInhaling = false;
