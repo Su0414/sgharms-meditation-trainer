@@ -17,20 +17,29 @@ MeditationTrainer.Controller.prototype = {
     }
 
     if (!this.isInhaling) {
-      console.log('creating breath');
-      this.currentBreath = new MeditationTrainer.Breath();
-      this.isInhaling = true;
+      if (!this.isExhaling) {
+        console.log('creating breath');
+        this.currentBreath = new MeditationTrainer.Breath();
+        this.isInhaling = true;
+        this.isExhaling = false;
+      } else {
+        console.log('ending breath');
+        this.currentBreath.finish();
+        this.isExhaling = false;
+      }
+
+      if (this.breathCount == this.maxBreathCount) {
+        console.log('game over');
+      }
     } else if (this.isInhaling) {
-      console.log('ending breath');
-      this.currentBreath.finish();
+      console.log('pivoting breath');
+      this.currentBreath.pivot();
       this.activeGame.addBreath(this.currentBreath)
       this.isInhaling = false;
+      this.isExhaling = true;
       this.breathCount++;
     }
 
-    if (this.breathCount == this.maxBreathCount) {
-      console.log('game over');
-    }
   },
 
   _noGameActive: function() {
