@@ -1,5 +1,7 @@
 MeditationTrainer.Controller = function(totalBreaths, statsView) {
   this.SPACEBAR_KEYCODE = 32;
+  this.DEBUG_MODE = true;
+
   this.maxBreathCount = typeof(totalBreaths) == "undefined" ? 3 : 0
 
   this.activeGame = null;
@@ -14,35 +16,46 @@ MeditationTrainer.Controller = function(totalBreaths, statsView) {
 MeditationTrainer.Controller.prototype = {
   spacebarFired: function(event) {
     if (this._noGameActive()) {
-      console.log('creating game');
-      this.activeGame = new MeditationTrainer.Game();
+      this._initializeGame();
     }
 
-    if (!this.isInhaling) {
-      if (!this.isExhaling) {
-        console.log('creating breath');
-        this.currentBreath = new MeditationTrainer.Breath();
-        this.isInhaling = true;
-        this.isExhaling = false;
-      } else {
-        console.log('ending breath');
-        this.currentBreath.finish();
-        this.breathCount++;
-        this.isExhaling = false;
-        this._updateStatsView();
-        if (this.breathCount == this.maxBreathCount) {
-          console.log('game over');
-        }
-      }
-
-    } else if (this.isInhaling) {
-      console.log('pivoting breath');
-      this.currentBreath.pivot();
-      this.activeGame.addBreath(this.currentBreath)
-      this.isInhaling = false;
-      this.isExhaling = true;
+    if (!this.isInhaling && !this.isExhaling) {
+      this._initializeFirstBreath();
+      return;
     }
 
+    this.isInhaling ?  this._pivotBreath() : this._endBreath();
+  },
+
+  _endBreath: function() {
+    if (this.DEBUG_MODE) console.log('ending breath');
+    this.currentBreath.finish();
+    this.breathCount++;
+    this.isExhaling = false;
+    this._updateStatsView();
+    if (this.breathCount == this.maxBreathCount) {
+      if (this.DEBUG_MODE) console.log('game over');
+    }
+  },
+
+  _pivotBreath: function() {
+    if (this.DEBUG_MODE) console.log('pivoting breath');
+    this.currentBreath.pivot();
+    this.activeGame.addBreath(this.currentBreath)
+    this.isInhaling = false;
+    this.isExhaling = true;
+  },
+
+  _initializeFirstBreath: function() {
+    if (this.DEBUG_MODE) console.log('creating breath');
+    this.currentBreath = new MeditationTrainer.Breath();
+    this.isInhaling = true;
+    this.isExhaling = false;
+  },
+
+  _initializeGame: function() {
+    if (this.DEBUG_MODE) console.log('creating game');
+    this.activeGame = new MeditationTrainer.Game();
   },
 
   _updateStatsView: function() {
