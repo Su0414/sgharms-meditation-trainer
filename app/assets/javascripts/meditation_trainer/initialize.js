@@ -1,1 +1,3 @@
-(new MeditationTrainer.Controller).razzle()
+$(function() {
+  new MeditationTrainer.Controller
+});
