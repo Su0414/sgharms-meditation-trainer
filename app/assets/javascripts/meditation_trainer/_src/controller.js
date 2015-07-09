@@ -40,7 +40,12 @@ MeditationTrainer.Controller.prototype = {
     if (this.breathCount == this.maxBreathCount) {
       if (this.DEBUG_MODE) console.log('game over');
       this._prompt("This concludes your session");
+      this._cleanup();
     }
+  },
+
+  _cleanup: function() {
+    $("body").off('keyup');
   },
 
   _recordBreath: function() {
