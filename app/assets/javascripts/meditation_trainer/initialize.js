@@ -1,0 +1,1 @@
+(new MeditationTrainer.Controller).razzle()
